@@ -1,0 +1,13 @@
+.shootingStarsContainer {
+  position: absolute;
+  inset: 0;
+
+  z-index: -1;
+}
+
+.star {
+  position: absolute;
+
+  height: 2px;
+  background: linear-gradient(-40grad, var(--color-gray), white);
+}

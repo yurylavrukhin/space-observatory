@@ -1,0 +1,22 @@
+.starrySky {
+  position: absolute;
+  inset: 0;
+
+  z-index: -1;
+
+  display: flex;
+
+  animation: sky-appear 2s var(--ease-in-quad) forwards;
+
+  filter: brightness(50%);
+}
+
+@keyframes sky-appear {
+  from {
+    opacity: 0;
+  }
+}
+
+.svg {
+  width: 100%;
+}

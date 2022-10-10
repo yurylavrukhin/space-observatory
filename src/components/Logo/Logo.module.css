@@ -1,0 +1,5 @@
+.logo {
+  padding: var(--space-5) 0 0 var(--space-5);
+
+  font-weight: bold;
+}
