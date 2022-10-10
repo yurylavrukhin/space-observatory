@@ -6,16 +6,34 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "mocha"
   },
   "dependencies": {
+    "jotai": "^1.8.5",
+    "mobx": "^6.6.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-is": "^18.2.0",
+    "styled-components": "^5.3.6",
+    "zustand": "^4.1.2"
   },
   "devDependencies": {
+    "@types/mocha": "^10.0.0",
+    "@types/node": "^18.11.0",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
+    "@types/styled-components": "^5.1.26",
+    "@vanilla-extract/css": "^1.9.1",
+    "@vanilla-extract/vite-plugin": "^3.6.1",
     "@vitejs/plugin-react": "^2.1.0",
+    "assert": "^2.0.0",
+    "autoprefixer": "^10.4.12",
+    "mocha": "^10.0.0",
+    "postcss": "^8.4.18",
+    "postcss-easings": "^3.0.1",
+    "postcss-sqrt": "^1.0.1",
+    "sugarss": "^4.0.1",
     "typescript": "^4.6.4",
     "vite": "^3.1.0"
   }

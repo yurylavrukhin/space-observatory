@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
+import { useAnimationSequence } from '../../hooks/useAnimationSequence.hooks';
 import { getRandomNumberInRange } from '../../util/getRandomNumberInRange';
 import { interval } from '../../util/interval';
 
@@ -6,13 +7,27 @@ import styles from './ShootingStars.module.css';
 
 export const ShootingStars = () => {
   const starRef = useRef<HTMLSpanElement>(null);
+
+  const { ref: shootingStarsContainerRef } =
+    useAnimationSequence<HTMLDivElement>({
+      name: 'shooting-stars',
+      styles: [
+        {
+          opacity: 0,
+        },
+        {
+          opacity: 1,
+        },
+      ],
+    });
+
   const shootStar = useCallback(() => {
     if (!starRef.current) {
       return;
     }
 
     const turn = getRandomNumberInRange(-150, -50);
-    const width = getRandomNumberInRange(10, 200);
+    const width = getRandomNumberInRange(5, 100);
 
     const left = getRandomNumberInRange(0, 100);
     const top = getRandomNumberInRange(0, 100);
@@ -28,7 +43,7 @@ export const ShootingStars = () => {
         { transform: `rotate(${turn}grad) translate(-100px)`, opacity: 0 },
       ],
       {
-        duration: 700,
+        duration: 1000,
         iterations: 1,
         easing: 'ease-out',
         fill: 'forwards',
@@ -37,11 +52,14 @@ export const ShootingStars = () => {
   }, []);
 
   useEffect(() => {
-    interval(shootStar, 3000);
+    interval(shootStar, 1000);
   }, []);
 
   return (
-    <div className={styles.shootingStarsContainer}>
+    <div
+      className={styles.shootingStarsContainer}
+      ref={shootingStarsContainerRef}
+    >
       <span ref={starRef} className={styles.star}></span>
     </div>
   );

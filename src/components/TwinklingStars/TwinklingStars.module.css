@@ -1,0 +1,10 @@
+.twinklingStarsContainer {
+  position: absolute;
+  inset: 0;
+
+  z-index: -1;
+
+  overflow: hidden;
+
+  opacity: 0;
+}

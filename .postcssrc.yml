@@ -1,0 +1,5 @@
+map: false
+plugins:
+  autoprefixer: {}
+  postcss-easings: {}
+  postcss-sqrt: {}
