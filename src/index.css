@@ -1,4 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+@font-face {
+  font-family: 'Martian Grotesk';
+  src: url('./assets/MartianGrotesk.woff2') format('woff2');
+  font-weight: 100 800;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -13,7 +20,8 @@
 } */
 
 :root {
-  font-family: Space Mono, Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Martian Grotesk, Space Mono, Inter, Avenir, Helvetica, Arial,
+    sans-serif;
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
