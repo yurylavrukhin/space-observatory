@@ -1,4 +1,5 @@
-import { style, createVar } from '@vanilla-extract/css';
+import { style, createVar, keyframes } from '@vanilla-extract/css';
+import { animationSequenceSeries1 } from '../../AnimationSequence.css';
 
 const container = style({
   position: 'absolute',
@@ -47,6 +48,11 @@ const day = style({
 
 const nightGradientVar = createVar();
 
+const appearNight = keyframes({
+  '0%': { opacity: 0 },
+  '100%': { opacity: 0.4 },
+});
+
 const night = style({
   vars: {
     [nightGradientVar]: `
@@ -65,6 +71,10 @@ const night = style({
     `,
   },
 
+  animationName: appearNight,
+  animationDuration: `${animationSequenceSeries1.get('darkness')}ms`,
+  animationFillMode: 'forwards',
+
   backgroundImage: nightGradientVar,
 
   position: 'absolute',
@@ -73,6 +83,18 @@ const night = style({
   filter: 'contrast(1.15)',
 
   opacity: 0,
+
+  '@media': {
+    '(prefers-reduced-motion)': {
+      animationName: 'none',
+      opacity: 0.4,
+    },
+  },
+});
+
+const appearStars = keyframes({
+  '0%': { opacity: 0 },
+  '100%': { opacity: 0.3 },
 });
 
 const stars = style({
@@ -83,6 +105,17 @@ const stars = style({
   opacity: 0,
 
   transform: 'scale(1.02)',
+
+  animationName: appearStars,
+  animationDuration: `${animationSequenceSeries1.get('stars')}ms`,
+  animationFillMode: 'forwards',
+
+  '@media': {
+    '(prefers-reduced-motion)': {
+      animationName: 'none',
+      opacity: 0.3,
+    },
+  },
 });
 
 export { container, day, night, stars };

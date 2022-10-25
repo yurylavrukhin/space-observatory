@@ -2,14 +2,14 @@ export const EMAIL_ERRORS: {
   [key in keyof Pick<
     ValidityState,
     'valueMissing' | 'typeMismatch' | 'patternMismatch'
-  >]?: string;
+  >]: string;
 } = {
   valueMissing: 'Please enter your email',
   typeMismatch: 'Invalid email address',
   patternMismatch: 'Invalid email address',
-};
+} as const;
 
-export const PASSWORD_ERROR = 'incorrect email or password';
+export const PASSWORD_ERROR = 'Incorrect email or password';
 
 export const PASSWORD_ERRORS: {
   [key in keyof Pick<ValidityState, 'valueMissing'>]?: string;

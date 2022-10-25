@@ -1,73 +1,52 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { useAnimationSequence } from '../../hooks/useAnimationSequence.hooks';
-import { Star } from '../../Star/Star';
+import { useEffect, useState } from 'react';
 import { getRandomNumberInRange } from '../../util/getRandomNumberInRange';
+import { Star } from '../Star/Star';
+import { container, star } from './TwinklingStars.css';
 
-import styles from './TwinklingStars.module.css';
+const STARS_AMOUNT = 75;
 
-const STARS_AMOUNT = 30;
+interface Point {
+  x: number;
+  y: number;
+  size: number;
+  turn: number;
+  opacity: number;
+}
 
 export const TwinklingStars = () => {
-  const starRef = useRef<HTMLSpanElement>(null);
-  const [points, setPoints] = useState<{ x: number; y: number }[]>([]);
-
-  const { ref: twinklingStarsContainerRef } =
-    useAnimationSequence<HTMLDivElement>({
-      name: 'twinkling-stars',
-      styles: [
-        {
-          opacity: 0,
-        },
-        {
-          opacity: 1,
-        },
-      ],
-    });
-
-  const p = useCallback(() => {
-    if (!starRef.current) {
-      return;
-    }
-
-    const turn = getRandomNumberInRange(-150, -50);
-    const width = getRandomNumberInRange(5, 100);
-
-    const left = getRandomNumberInRange(0, 100);
-    const top = getRandomNumberInRange(0, 100);
-
-    setPoints([...points, { x: left, y: top }]);
-  }, []);
+  const [points, setPoints] = useState<Point[]>([]);
 
   useEffect(() => {
-    const newPoints = [];
+    const newPoints: Point[] = [];
     for (let i = 0; i < STARS_AMOUNT; i++) {
       const turn = getRandomNumberInRange(-150, -50);
-      const width = getRandomNumberInRange(5, 100);
+      const size = getRandomNumberInRange(5, 15);
 
       const left = getRandomNumberInRange(0, 100);
       const top = getRandomNumberInRange(0, 100);
+      const opacity = getRandomNumberInRange(0.1, 1);
 
-      newPoints[i] = { x: left, y: top };
+      newPoints[i] = { x: left, y: top, size, turn, opacity };
     }
 
     setPoints(newPoints);
   }, []);
 
   return (
-    <div
-      className={styles.twinklingStarsContainer}
-      ref={twinklingStarsContainerRef}
-    >
-      {points.map(({ x, y }) => {
+    <div className={container}>
+      {points.map(({ x, y, size: size, opacity }) => {
         return (
           <div
+            className={star}
             style={{
-              position: 'absolute',
               left: `${x}%`,
               top: `${y}%`,
+              width: size,
+              height: size,
+              opacity,
             }}
           >
-            <Star onFade={() => {}} isExploding={false} />
+            <Star />
           </div>
         );
       })}

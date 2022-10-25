@@ -1,4 +1,4 @@
-export interface EmailValidityType {
+export interface EmailValidity {
   isInvalid: boolean;
   invalidityType?: keyof Pick<
     ValidityState,
@@ -6,7 +6,7 @@ export interface EmailValidityType {
   >;
 }
 
-export interface PasswordValidityType {
+export interface PasswordValidity {
   isInvalid: boolean;
   invalidityType?: keyof Pick<ValidityState, 'valueMissing'>;
 }

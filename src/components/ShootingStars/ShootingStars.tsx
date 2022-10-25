@@ -1,25 +1,14 @@
 import { useCallback, useEffect, useRef } from 'react';
-import { useAnimationSequence } from '../../hooks/useAnimationSequence.hooks';
 import { getRandomNumberInRange } from '../../util/getRandomNumberInRange';
 import { interval } from '../../util/interval';
+import { container, star } from './ShootingStars.css';
 
-import styles from './ShootingStars.module.css';
+const isReducedMotion = window.matchMedia(
+  '(prefers-reduced-motion: reduce)'
+).matches;
 
 export const ShootingStars = () => {
   const starRef = useRef<HTMLSpanElement>(null);
-
-  const { ref: shootingStarsContainerRef } =
-    useAnimationSequence<HTMLDivElement>({
-      name: 'shooting-stars',
-      styles: [
-        {
-          opacity: 0,
-        },
-        {
-          opacity: 1,
-        },
-      ],
-    });
 
   const shootStar = useCallback(() => {
     if (!starRef.current) {
@@ -52,15 +41,20 @@ export const ShootingStars = () => {
   }, []);
 
   useEffect(() => {
+    if (isReducedMotion) {
+      return;
+    }
+
     interval(shootStar, 1000);
   }, []);
 
+  if (isReducedMotion) {
+    return null;
+  }
+
   return (
-    <div
-      className={styles.shootingStarsContainer}
-      ref={shootingStarsContainerRef}
-    >
-      <span ref={starRef} className={styles.star}></span>
+    <div className={container}>
+      <span ref={starRef} className={star}></span>
     </div>
   );
 };
