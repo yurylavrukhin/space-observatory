@@ -83,7 +83,6 @@ export const Form = () => {
 
   return (
     <>
-      {/* <div className={pane}></div> */}
       <div className={container} ref={containerRef}>
         <div className={contactUs}>
           <a tabIndex={4} className={contactUsLink} href='#'>

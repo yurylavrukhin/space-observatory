@@ -13,48 +13,6 @@ import {
 const primaryGradientColor = createVar();
 const gradientSize = createVar();
 
-const paneReveal = keyframes({
-  '0%': {
-    transform: 'scaleX(0)',
-  },
-  '100%': {
-    transform: 'scaleX(1)',
-  },
-});
-
-export const pane = style({
-  display: 'none',
-
-  '@media': {
-    'screen and (min-width: 650px)': {
-      display: 'grid',
-      placeItems: 'center',
-
-      position: 'absolute',
-      left: '50%',
-      right: '0',
-      top: '0',
-      bottom: '0',
-
-      background: 'rgb(10 18 42 / 3%)',
-      backdropFilter: 'blur(70px)',
-
-      transformOrigin: '100%',
-      transform: 'scaleX(0)',
-      overflow: 'hidden',
-
-      animationName: paneReveal,
-      animationDuration: '800ms',
-      animationFillMode: 'forwards',
-      animationDelay: '1000ms',
-    },
-    '(prefers-reduced-motion)': {
-      animationName: 'none',
-      transform: 'scaleX(1)',
-    },
-  },
-});
-
 export const formReveal = keyframes({
   '0%': { opacity: 0, transform: 'scale(0.95)' },
   '100%': { opacity: 1, transform: 'scale(1)' },
@@ -115,6 +73,13 @@ export const signIn = style({
 
   display: 'grid',
   placeItems: 'center',
+  overflow: 'hidden',
+
+  '@media': {
+    'screen and (min-width: 650px)': {
+      overflow: 'initial',
+    },
+  },
 });
 
 export const signInFormContainer = style({
@@ -160,7 +125,7 @@ export const gradient1Container = style({
 export const gradient1 = style({
   vars: {
     [primaryGradientColor]: '7 223 126',
-    [gradientSize]: '240px',
+    [gradientSize]: '270px',
   },
   width: gradientSize,
   height: gradientSize,
@@ -168,7 +133,7 @@ export const gradient1 = style({
   background: `radial-gradient(
     circle at center,
     rgb(${primaryGradientColor} / 1),
-    rgb(${primaryGradientColor} / 0.4) 50%,
+    rgb(${primaryGradientColor} / 0.6) 50%,
     rgb(${primaryGradientColor} / 0.1) 60%,
     transparent 90%
   )`,
@@ -208,7 +173,7 @@ export const gradient2Container = style({
 export const gradient2 = style({
   vars: {
     [primaryGradientColor]: '7 123 726',
-    [gradientSize]: '300px',
+    [gradientSize]: '200px',
   },
   width: gradientSize,
   height: gradientSize,
@@ -216,18 +181,18 @@ export const gradient2 = style({
   background: `radial-gradient(
     circle at center,
     rgb(${primaryGradientColor} / 1),
-    rgb(${primaryGradientColor} / 0.4) 50%,
+    rgb(${primaryGradientColor} / 0.6) 50%,
     rgb(${primaryGradientColor} / 0.1) 60%,
     transparent 90%
   )`,
   borderRadius: '50%',
-  filter: 'blur(30px) contrast(0.7)',
+  filter: 'blur(40px) contrast(0.7)',
 
   transition: 'all 1s',
 });
 
 export const gradient1Error = style({
-  filter: 'blur(70px) contrast(0.85) hue-rotate(265deg)',
+  filter: 'blur(70px) contrast(0.65) hue-rotate(265deg)',
 });
 
 export const gradient2Error = style({
@@ -392,7 +357,7 @@ export const submitButton = style({
 
   borderRadius,
 
-  transition: '.25s box-shadow ease-out',
+  transition: '.25s all ease-out',
 
   background: `linear-gradient(
     60deg,
@@ -427,7 +392,7 @@ export const submitButton = style({
     cursor: 'default',
   },
 
-  ':hover': { opacity: 0.8 },
+  ':hover': { opacity: 0.95, filter: 'brightness(0.85)' },
 });
 
 export const privacy = style({
