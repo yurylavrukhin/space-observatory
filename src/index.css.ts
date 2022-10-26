@@ -33,6 +33,12 @@ const { color, font, padding, borderRadius, selection } = createGlobalTheme(
       space8: '40px',
       space9: '45px',
       space10: '50px',
+      space11: '55px',
+      space12: '60px',
+      space13: '65px',
+      space14: '70px',
+      space15: '75px',
+      space16: '80px',
     },
 
     selection: {
