@@ -1,4 +1,6 @@
-function getRandomPositiveFloat(a, b, digits = 1) {
+import { Point } from './TwinklingStars';
+
+function getRandomPositiveFloat(a: number, b: number, digits = 1) {
   if (a < 0 || b < 0 || digits < 0) {
     return NaN;
   }
@@ -8,7 +10,7 @@ function getRandomPositiveFloat(a, b, digits = 1) {
   return +result.toFixed(digits);
 }
 
-export const getRandomNumberInRange = (min, max) => {
+export const getRandomNumberInRange = (min: number, max: number) => {
   // min and max included
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
@@ -16,7 +18,7 @@ export const getRandomNumberInRange = (min, max) => {
 const STARS_AMOUNT = 75;
 
 export const getPoints = () => {
-  const points = {};
+  const points: { [id: number]: Point } = {};
 
   for (let i = 0; i < STARS_AMOUNT; i++) {
     const size = getRandomNumberInRange(5, 20);

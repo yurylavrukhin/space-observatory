@@ -6,7 +6,7 @@ import { Star } from './Star/Star';
 import { container, litStar, star } from './TwinklingStars.css';
 import { getPoints } from './TwinklingStars.utils';
 
-interface Point {
+export interface Point {
   left: number;
   // right?: number;
   top: number;
