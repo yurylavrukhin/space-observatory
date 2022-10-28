@@ -9,7 +9,8 @@ import {
 
 const VIRTUAL_SUBMIT_DURATION = 400;
 
-const minimumWaitPromise = sleep(VIRTUAL_SUBMIT_DURATION);
+const getVirtualSubmitPromise = () =>
+  new Promise((resolve) => setTimeout(resolve, VIRTUAL_SUBMIT_DURATION));
 
 export const useFormValidation = ({
   emailInputRef,
@@ -70,7 +71,7 @@ export const useFormValidation = ({
       for (const invalidityType of EMAIL_INVALIDITY_TYPES) {
         const isInvalid = emailInputRef.current?.validity[invalidityType];
         if (isInvalid) {
-          await minimumWaitPromise;
+          await getVirtualSubmitPromise();
 
           setIsShaking(true);
           setIsSubmitting(false);
@@ -82,7 +83,7 @@ export const useFormValidation = ({
       for (const invalidityType of PASSWORD_INVALIDITY_TYPES) {
         const isInvalid = passwordInputRef.current?.validity[invalidityType];
         if (isInvalid) {
-          await minimumWaitPromise;
+          await getVirtualSubmitPromise();
 
           setIsShaking(true);
           setIsSubmitting(false);
