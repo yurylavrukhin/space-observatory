@@ -1,88 +1,10 @@
 import { style, keyframes, createVar } from '@vanilla-extract/css';
-import { calc } from '@vanilla-extract/css-utils';
-import { firstSeriesAnimationDuration } from '../../AnimationSequence.css';
-import {
-  borderRadius,
-  colorPrimary,
-  colorSecondary,
-  contentPadding,
-  outlineBoxShadow,
-  padding,
-} from '../../index.css';
+import { borderRadius, outlineBoxShadow, padding } from '../../index.css';
 
 const primaryGradientColor = createVar();
 const gradientSize = createVar();
 
-export const formReveal = keyframes({
-  '0%': { opacity: 0, transform: 'scale(0.95)' },
-  '100%': { opacity: 1, transform: 'scale(1)' },
-});
-
 export const container = style({
-  position: 'absolute',
-  inset: 0,
-
-  display: 'flex',
-  flexFlow: 'column',
-  justifyContent: 'space-between',
-
-  height: '100%',
-  flexDirection: 'column',
-  opacity: 0,
-  animationName: formReveal,
-  animationDuration: '1000ms',
-  animationFillMode: 'forwards',
-  // animationDelay: calc.add(firstSeriesAnimationDuration, '500ms'),
-  animationDelay: '2000ms',
-
-  '@media': {
-    'screen and (min-width: 650px)': {
-      right: 0,
-      left: '50%',
-    },
-    '(prefers-reduced-motion)': {
-      animationName: 'none',
-      opacity: 1,
-    },
-  },
-});
-
-export const contactUs = style({
-  padding: `${contentPadding} ${contentPadding}  0 0`,
-  display: 'flex',
-  justifyContent: 'flex-end',
-  zIndex: 1,
-});
-
-export const contactUsLink = style({
-  textDecoration: 'underline',
-  color: '#dedede',
-  borderRadius: 4,
-  fontSize: 13,
-  transition: '.25s box-shadow',
-
-  ':focus': {
-    outline: 'none',
-    boxShadow: outlineBoxShadow,
-  },
-});
-
-export const signIn = style({
-  position: 'absolute',
-  inset: 0,
-
-  display: 'grid',
-  placeItems: 'center',
-  overflow: 'hidden',
-
-  '@media': {
-    'screen and (min-width: 650px)': {
-      overflow: 'initial',
-    },
-  },
-});
-
-export const signInFormContainer = style({
   borderRadius,
   padding: padding.space9,
   position: 'relative',
@@ -226,7 +148,7 @@ const shakeMove = keyframes({
   },
 });
 
-export const isShakingMove = style({
+export const isFormShaking = style({
   animationName: shakeMove,
   animationDuration: '0.6s',
 });
@@ -316,11 +238,14 @@ export const input = style({
 
   border: 'none',
 
+  fontFamily: 'inherit',
+  fontWeight: 400,
+
   padding: `0 ${padding.space3}`,
   minHeight: minimumInputHeight,
-  fontSize: 20,
+  fontSize: 16,
   borderRadius,
-  minWidth: '200px',
+  minWidth: '250px',
   backgroundColor: '#caddeb',
 
   color: 'black',
@@ -341,88 +266,4 @@ export const warningIconContainer = style({
   height: 20,
   display: 'flex',
   alignItems: 'center',
-});
-
-export const submitButton = style({
-  color: colorPrimary,
-  fontSize: 20,
-  fontWeight: 'bold',
-  fontFamily: 'inherit',
-  lineHeight: 1,
-
-  cursor: 'pointer',
-
-  border: 'none',
-  padding: `${padding.space3} 0`,
-
-  borderRadius,
-
-  transition: '.25s all ease-out',
-
-  background: `linear-gradient(
-    60deg,
-    hsl(223deg 68% 6%) 0%,
-    hsl(246deg 46% 14%) 20%,
-    hsl(254deg 56% 20%) 31%,
-    hsl(257deg 63% 26%) 39%,
-    hsl(259deg 69% 32%) 46%,
-    hsl(261deg 76% 38%) 53%,
-    hsl(263deg 83% 44%) 60%,
-    hsl(265deg 93% 48%) 66%,
-    hsl(264deg 100% 57%) 71%,
-    hsl(265deg 99% 64%) 76%,
-    hsl(266deg 98% 70%) 81%,
-    hsl(267deg 96% 75%) 86%,
-    hsl(269deg 92% 80%) 90%,
-    hsl(270deg 85% 85%) 94%,
-    hsl(270deg 69% 89%) 98%,
-    hsl(270deg 27% 94%) 100%
-  )`,
-
-  ':focus': {
-    outline: 'none',
-    boxShadow: outlineBoxShadow,
-  },
-
-  ':active': {
-    outline: 'none',
-  },
-
-  ':disabled': {
-    cursor: 'default',
-  },
-
-  ':hover': { opacity: 0.95, filter: 'brightness(0.85)' },
-});
-
-export const privacy = style({
-  color: colorSecondary,
-  borderRadius: 4,
-  fontSize: 13,
-  transition: '.25s box-shadow ease-out',
-
-  ':focus': {
-    outline: 'none',
-    boxShadow: outlineBoxShadow,
-  },
-});
-
-export const author = style({
-  fontSize: 13,
-  color: colorSecondary,
-});
-
-export const footer = style({
-  padding: `0 ${contentPadding} ${contentPadding} ${contentPadding}`,
-  zIndex: 1,
-
-  display: 'flex',
-  justifyContent: 'space-between',
-  gap: padding.space4,
-
-  '@media': {
-    'screen and (min-width: 650px)': {
-      justifyContent: 'flex-end',
-    },
-  },
 });

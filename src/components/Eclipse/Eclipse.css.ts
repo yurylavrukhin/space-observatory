@@ -1,5 +1,4 @@
 import { keyframes, style, createVar } from '@vanilla-extract/css';
-import { animationSequenceSeries1 } from '../../AnimationSequence.css';
 
 const eclipseSize = createVar();
 
@@ -14,11 +13,18 @@ export const eclipse = style({
   zIndex: '0',
 
   display: 'flex',
+
+  filter: 'brightness(0.8)',
 });
 
 const eclipseMove = keyframes({
-  '0%': { transform: 'translate(calc(-50% + 125px), calc(-50% + 125px))' },
-  '100%': { transform: 'translate(calc(-50% + 0px), calc(-50% + 0px))' },
+  '0%': { transform: 'translate(calc(-50% + 50px), calc(-50% + 50px))' },
+
+  '70%': { boxShadow: 'inset 0 0 5px 2px white' },
+  '100%': {
+    transform: 'translate(calc(-50% + 0px), calc(-50% + 0px))',
+    boxShadow: 'inset 0 0 15px 2px white',
+  },
 });
 
 const smallShadowGlimmer = keyframes({
@@ -34,8 +40,10 @@ const mediumShadowGlimmer = keyframes({
 
 const largeShadowGlimmer = keyframes({
   '0%': { opacity: '0' },
+
+  '30%': { opacity: 0 },
   '50%': { opacity: '1' },
-  '100%': { opacity: '0.1' },
+  '100%': { opacity: '0' },
 });
 
 export const star = style({
@@ -65,10 +73,9 @@ export const planet = style({
   height: eclipseSize,
   borderRadius: '50%',
 
-  boxShadow: 'inset 0 0 15px 2px white',
-
   animationName: eclipseMove,
-  animationDuration: `${animationSequenceSeries1.get('eclipse')}ms`,
+  animationDuration: `5000ms`,
+  animationDelay: '500ms',
   animationFillMode: 'forwards',
   animationTimingFunction: 'easeOutCirc',
 
@@ -80,8 +87,17 @@ export const planet = style({
   },
 });
 
+const planetDim = keyframes({
+  from: { opacity: 0.14 },
+  to: { opacity: 0.05 },
+});
+
 export const planetWrapper = style({
-  opacity: 0.14,
+  opacity: 0.05,
+
+  animationName: planetDim,
+  animationDuration: '5000ms',
+  animationFillMode: 'forwards',
 });
 
 export const smallShadow = style({
@@ -97,9 +113,7 @@ export const smallShadow = style({
   boxShadow: '1px 1px 20px 2px white',
 
   animationName: smallShadowGlimmer,
-  animationDuration: `${animationSequenceSeries1.get(
-    'eclipse-shadow-small'
-  )}ms`,
+  animationDuration: `6000ms`,
   animationFillMode: 'forwards',
   animationTimingFunction: 'easeOutCirc',
 
@@ -125,9 +139,7 @@ export const mediumShadow = style({
   opacity: 0,
 
   animationName: mediumShadowGlimmer,
-  animationDuration: `${animationSequenceSeries1.get(
-    'eclipse-shadow-medium'
-  )}ms`,
+  animationDuration: `10000ms`,
   animationFillMode: 'forwards',
   animationTimingFunction: 'easeOutCirc',
 
@@ -148,15 +160,13 @@ export const largeShadow = style({
   height: eclipseSize,
   borderRadius: '50%',
 
-  boxShadow: '0 0 400px 130px rgb(255 255 255 / 0.5)',
+  boxShadow: '0 0 200px 130px rgb(255 255 255 / 0.5)',
   filter: 'drop-shadow(0 0 1000px rgb(255 255 255 / 0.5))',
 
   opacity: 0,
 
   animationName: largeShadowGlimmer,
-  animationDuration: `${animationSequenceSeries1.get(
-    'eclipse-shadow-large'
-  )}ms`,
+  animationDuration: `5000ms`,
   animationFillMode: 'forwards',
   animationTimingFunction: 'easeOutCirc',
 
@@ -200,25 +210,24 @@ const diamondRingSizeVar = createVar();
 
 export const diamondRing = style({
   vars: {
-    [diamondRingSizeVar]: '35px',
+    [diamondRingSizeVar]: '50px',
   },
   position: 'absolute',
   left: '25px',
   top: '25px',
   display: 'block',
 
-  boxShadow: '0 0 100px 50px white',
+  boxShadow: '0 0 70px 30px white',
 
   width: diamondRingSizeVar,
   height: diamondRingSizeVar,
 
-  transform: 'rotate(-50grad)',
   background: 'white',
-  borderRadius: '50%',
-  filter: 'drop-shadow(0 0 10px orange) blur(10px)',
+  borderRadius: '50% 10%',
+  filter: 'drop-shadow(0 0 10px orange) blur(7px)',
 
   animationName: diamondRingBlink,
-  animationDuration: `${animationSequenceSeries1.get('diamond-ring')}ms`,
+  animationDuration: `6000ms`,
   animationFillMode: 'forwards',
   animationTimingFunction: 'easeOutCirc',
 

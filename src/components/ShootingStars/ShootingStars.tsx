@@ -1,13 +1,10 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { memo, useCallback, useEffect, useRef } from 'react';
 import { getRandomNumberInRange } from '../../util/getRandomNumberInRange';
 import { interval } from '../../util/interval';
+import { getIsReducedMotion } from '../../util/isReducedMotion';
 import { container, star } from './ShootingStars.css';
 
-const isReducedMotion = window.matchMedia(
-  '(prefers-reduced-motion: reduce)'
-).matches;
-
-export const ShootingStars = () => {
+const ShootingStars = () => {
   const starRef = useRef<HTMLSpanElement>(null);
 
   const shootStar = useCallback(() => {
@@ -41,14 +38,14 @@ export const ShootingStars = () => {
   }, []);
 
   useEffect(() => {
-    if (isReducedMotion) {
+    if (getIsReducedMotion()) {
       return;
     }
 
-    interval(shootStar, 1000);
+    interval(shootStar, 1300);
   }, []);
 
-  if (isReducedMotion) {
+  if (getIsReducedMotion()) {
     return null;
   }
 
@@ -58,3 +55,5 @@ export const ShootingStars = () => {
     </div>
   );
 };
+
+export default memo(ShootingStars);

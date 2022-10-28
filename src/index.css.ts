@@ -84,6 +84,7 @@ globalStyle(':root', {
 globalStyle('body', {
   margin: 0,
   minHeight: '100vh',
+  background: 'black',
 
   color: colorPrimary,
 });

@@ -1,55 +1,81 @@
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { getRandomNumberInRange } from '../../util/getRandomNumberInRange';
-import { Star } from '../Star/Star';
-import { container, star } from './TwinklingStars.css';
-
-const STARS_AMOUNT = 75;
+import { interval } from '../../util/interval';
+import { getIsReducedMotion } from '../../util/isReducedMotion';
+import { Star } from './Star/Star';
+import { container, litStar, star } from './TwinklingStars.css';
+import { getPoints } from './TwinklingStars.utils';
 
 interface Point {
-  x: number;
-  y: number;
+  left: number;
+  // right?: number;
+  top: number;
   size: number;
-  turn: number;
+  // turn: number;
   opacity: number;
+  isLit?: boolean;
 }
 
-export const TwinklingStars = () => {
-  const [points, setPoints] = useState<Point[]>([]);
+type Points = { [id: string]: Point };
 
-  useEffect(() => {
-    const newPoints: Point[] = [];
-    for (let i = 0; i < STARS_AMOUNT; i++) {
-      const turn = getRandomNumberInRange(-150, -50);
-      const size = getRandomNumberInRange(5, 15);
+const pointsInitialState: Points = getPoints();
 
-      const left = getRandomNumberInRange(0, 100);
-      const top = getRandomNumberInRange(0, 100);
-      const opacity = getRandomNumberInRange(0.1, 1);
+function getRandomPositiveFloat(a: number, b: number, digits = 1) {
+  if (a < 0 || b < 0 || digits < 0) {
+    return NaN;
+  }
+  const lower = Math.min(a, b);
+  const upper = Math.max(a, b);
+  const result = Math.random() * (upper - lower) + lower;
+  return +result.toFixed(digits);
+}
 
-      newPoints[i] = { x: left, y: top, size, turn, opacity };
-    }
+const TwinklingStars = () => {
+  const [points, setPoints] = useState<Points>(pointsInitialState);
 
-    setPoints(newPoints);
-  }, []);
+  console.log('a');
+  // const twinkleStar = () => {
+  //   const randomStarIndex = getRandomNumberInRange(
+  //     0,
+  //     Object.keys(points).length
+  //   );
+  //   setPoints({
+  //     ...points,
+  //     [randomStarIndex]: { ...points[randomStarIndex], isLit: true },
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   if (getIsReducedMotion()) {
+  //     return;
+  //   }
+
+  //   // interval(twinkleStar, 1300);
+  // }, []);
 
   return (
     <div className={container}>
-      {points.map(({ x, y, size: size, opacity }) => {
+      {Object.keys(points).map((key) => {
+        const { left, top, size, opacity, isLit } = points[key];
+
         return (
           <div
-            className={star}
+            key={key}
+            className={`${star}`}
             style={{
-              left: `${x}%`,
-              top: `${y}%`,
+              left: `${left}%`,
+              top: `${top}%`,
               width: size,
               height: size,
               opacity,
             }}
           >
-            <Star />
+            <Star id={key} isLit={!!isLit} />
           </div>
         );
       })}
     </div>
   );
 };
+
+export default memo(TwinklingStars);

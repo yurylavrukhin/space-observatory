@@ -8,5 +8,5 @@ export interface EmailValidity {
 
 export interface PasswordValidity {
   isInvalid: boolean;
-  invalidityType?: keyof Pick<ValidityState, 'valueMissing'>;
+  invalidityType?: keyof Pick<ValidityState, 'valueMissing'> | 'valueIncorrect';
 }

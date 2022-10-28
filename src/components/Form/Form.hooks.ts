@@ -6,39 +6,43 @@ import {
   PASSWORD_INVALIDITY_TYPES,
 } from './Form.utils';
 
-const BOT_SHIELD_SLEEP_TIME = 400;
+const VIRTUAL_SUBMIT_DURATION = 400;
 
-export const useFormValidation = () => {
+export const useFormValidation = ({
+  emailInputRef,
+}: {
+  emailInputRef: React.RefObject<HTMLInputElement>;
+}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [isSuccess, setIsSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [emailValidity, setEmailValidity] = useState<EmailValidity>({
     isInvalid: false,
   });
-
   const [passwordValidity, setPasswordValidity] = useState<PasswordValidity>({
     isInvalid: false,
   });
+
+  const hasValidationErrors =
+    emailValidity.isInvalid || passwordValidity.isInvalid;
 
   const [isEmailInvalid, setIsEmailInvalid] = useState(false);
   const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
 
   const [isShaking, setIsShaking] = useState(false);
 
-  const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
   const signInFormRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (!emailInputRef.current) {
+    if (!emailInputRef?.current) {
       return;
     }
 
     if (!isSubmitting && emailValidity.isInvalid) {
-      emailInputRef.current.focus();
+      emailInputRef?.current.focus();
     }
   }, [isSubmitting, emailValidity.isInvalid]);
 
@@ -57,11 +61,11 @@ export const useFormValidation = () => {
       event.preventDefault();
       setIsSubmitting(true);
       const minimumWaitPromise = new Promise((resolve) =>
-        setTimeout(resolve, BOT_SHIELD_SLEEP_TIME)
+        setTimeout(resolve, VIRTUAL_SUBMIT_DURATION)
       );
 
       for (const invalidityType of EMAIL_INVALIDITY_TYPES) {
-        const isInvalid = emailInputRef.current?.validity[invalidityType];
+        const isInvalid = emailInputRef?.current?.validity[invalidityType];
         if (isInvalid) {
           await minimumWaitPromise;
 
@@ -87,25 +91,18 @@ export const useFormValidation = () => {
       try {
         const isAuthorised = await authService.authorize(email, password);
         if (!isAuthorised) {
+          setIsShaking(true);
           setPasswordValidity({
             isInvalid: true,
-            invalidityType: undefined,
+            invalidityType: 'valueIncorrect',
           });
+        } else {
+          alert('Welcome!');
+          // successful sign in
         }
       } finally {
         setIsSubmitting(false);
       }
-
-      alert(
-        JSON.stringify(
-          {
-            email,
-            password,
-          },
-          null,
-          2
-        )
-      );
     },
     [email, password]
   );
@@ -119,6 +116,16 @@ export const useFormValidation = () => {
     }
   }, [emailValidity.isInvalid]);
 
+  useEffect(() => {
+    if (!emailValidity.isInvalid) {
+      setIsEmailInvalid(false);
+    }
+
+    if (!passwordValidity.isInvalid) {
+      setIsPasswordInvalid(false);
+    }
+  }, [passwordValidity.isInvalid, emailValidity.isInvalid]);
+
   const resetShakingState = useCallback(() => {
     setIsShaking(false);
     if (emailValidity.isInvalid) {
@@ -127,16 +134,6 @@ export const useFormValidation = () => {
 
     if (passwordValidity.isInvalid) {
       setIsPasswordInvalid(true);
-    }
-  }, [passwordValidity.isInvalid, emailValidity.isInvalid]);
-
-  useEffect(() => {
-    if (!emailValidity.isInvalid) {
-      setIsEmailInvalid(false);
-    }
-
-    if (!passwordValidity.isInvalid) {
-      setIsPasswordInvalid(false);
     }
   }, [passwordValidity.isInvalid, emailValidity.isInvalid]);
 
@@ -151,14 +148,33 @@ export const useFormValidation = () => {
     };
   }, [resetShakingState]);
 
-  const hasValidationErrors =
-    emailValidity.isInvalid || passwordValidity.isInvalid;
-
   useEffect(() => {
     if (hasValidationErrors) {
       setIsShaking(true);
     }
   }, [hasValidationErrors]);
+
+  const handleEmailChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setEmailValidity({
+        isInvalid: false,
+        invalidityType: undefined,
+      });
+      setEmail(event.target.value);
+    },
+    []
+  );
+
+  const handlePasswordChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setPasswordValidity({
+        isInvalid: false,
+        invalidityType: undefined,
+      });
+      setPassword(event.target.value);
+    },
+    []
+  );
 
   return {
     isSubmitting,
@@ -173,47 +189,10 @@ export const useFormValidation = () => {
     setPassword,
     handleSubmit,
     hasValidationErrors,
-    isSuccess,
     setPasswordValidity,
     isEmailInvalid,
     isPasswordInvalid,
-  };
-};
-
-export const useFormReveal = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const isReducedMotion = window.matchMedia(
-    '(prefers-reduced-motion: reduce)'
-  ).matches;
-  const [areInputsDisabled, setAreInputsDisabled] = useState(
-    isReducedMotion ? false : true
-  );
-
-  const handleFormReveal = useCallback(() => {
-    setAreInputsDisabled(false);
-  }, []);
-
-  useEffect(() => {
-    if (!containerRef.current) {
-      return;
-    }
-
-    containerRef.current.addEventListener('animationend', handleFormReveal);
-
-    return () => {
-      if (!containerRef.current) {
-        return;
-      }
-
-      containerRef.current.removeEventListener(
-        'animationend',
-        handleFormReveal
-      );
-    };
-  }, []);
-
-  return {
-    areInputsDisabled,
-    containerRef,
+    handleEmailChange,
+    handlePasswordChange,
   };
 };

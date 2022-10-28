@@ -35,7 +35,7 @@ export const animationSequenceSeries2 = new Map<AnimationNameSequence2, number>(
   [
     ['pane-reveal', 1500],
     ['form-reveal', 1500],
-    ['space-fade', 8000],
+    ['space-fade', 10000],
   ]
 );
 

@@ -1,8 +1,4 @@
 import { keyframes, style } from '@vanilla-extract/css';
-import {
-  animationSequenceSeries2,
-  firstSeriesAnimationDuration,
-} from '../../AnimationSequence.css';
 
 const spaceFade = keyframes({
   from: {
@@ -17,7 +13,7 @@ export const compositionWrapper = style({
   height: '100%',
 
   animationName: spaceFade,
-  animationDuration: `${animationSequenceSeries2.get('space-fade')}ms`,
+  animationDuration: '8000ms',
   animationFillMode: 'forwards',
   animationDelay: '2000ms',
 

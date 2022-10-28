@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { memo, useRef } from 'react';
 import {
   planet,
   eclipse,
@@ -12,7 +12,7 @@ import {
 } from './Eclipse.css';
 import { PlanetIcon } from '../Icons/PlanetIcon/PlanetIcon';
 
-export const Eclipse = () => {
+const Eclipse = () => {
   const eclipseRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -34,3 +34,5 @@ export const Eclipse = () => {
     </div>
   );
 };
+
+export default memo(Eclipse);
