@@ -32,13 +32,13 @@ const letterAppear = keyframes({
   },
 });
 
-const step = '70ms';
+const step = '100ms';
 
 const initialDelay = createVar();
 
 export const letter = style({
   vars: {
-    [initialDelay]: '4700ms',
+    [initialDelay]: '4200ms',
   },
 
   ...letterAppearFromStyles,

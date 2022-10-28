@@ -97,9 +97,14 @@ globalStyle(':root', {
   WebkitTextSizeAdjust: '100%',
 });
 
+globalStyle('html, #root', {
+  height: '100%',
+});
+
 globalStyle('body', {
+  padding: 'env(safe-area-inset)',
   margin: 0,
-  minHeight: '100vh',
+  height: '100%',
   background: 'black',
 
   color: colorPrimary,

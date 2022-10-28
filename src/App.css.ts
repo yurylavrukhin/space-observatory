@@ -1,8 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
-  height: 1,
-  minHeight: '100vh',
+  height: '100%',
   transition: '1s all',
 });
 

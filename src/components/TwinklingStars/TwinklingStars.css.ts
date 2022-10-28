@@ -24,8 +24,6 @@ export const container = style({
   animationFillMode: 'forwards',
   animationDelay: '3500ms',
 
-  minWidth: '1400px',
-
   '@media': {
     '(prefers-reduced-motion)': {
       animationName: 'none',
@@ -37,19 +35,19 @@ export const container = style({
 const starLight = keyframes({
   from: {
     transform: 'scale(1)',
-    opacity: 'inherit',
+    opacity: 'unset',
   },
   '90%': {
     transform: 'scale(1)',
-    opacity: 'inherit',
+    opacity: 'unset',
   },
   '95%': {
-    transform: 'scale(1.3)',
+    transform: 'scale(1.4)',
     opacity: 1,
   },
   to: {
     transform: 'scale(1)',
-    opacity: 'inherit',
+    opacity: 'unset',
   },
 });
 
@@ -64,44 +62,23 @@ export const star = style({
       animationDuration: '4600ms',
     },
 
-    '&:nth-child(4)': {
+    '&:nth-child(1)': {
       animationDelay: '300ms',
     },
-    '&:nth-child(8)': {
+    '&:nth-child(2)': {
       animationDelay: '600ms',
     },
-    '&:nth-child(12)': {
+    '&:nth-child(3)': {
       animationDelay: '900ms',
     },
-    '&:nth-child(16)': {
+    '&:nth-child(4)': {
       animationDelay: '1200ms',
     },
-    '&:nth-child(20)': {
+    '&:nth-child(5)': {
       animationDelay: '1500ms',
     },
-    '&:nth-child(24)': {
+    '&:nth-child(6)': {
       animationDelay: '1800ms',
-    },
-    '&:nth-child(28)': {
-      animationDelay: '2100ms',
-    },
-    '&:nth-child(32)': {
-      animationDelay: '2400ms',
-    },
-    '&:nth-child(36)': {
-      animationDelay: '2700ms',
-    },
-    '&:nth-child(40)': {
-      animationDelay: '3000ms',
-    },
-    '&:nth-child(44)': {
-      animationDelay: '3300ms',
-    },
-    '&:nth-child(48)': {
-      animationDelay: '3600ms',
-    },
-    '&:nth-child(52)': {
-      animationDelay: '4000ms',
     },
   },
 

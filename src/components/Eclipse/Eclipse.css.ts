@@ -4,7 +4,15 @@ const eclipseSize = createVar();
 
 export const eclipse = style({
   vars: {
-    [eclipseSize]: '320px',
+    [eclipseSize]: '260px',
+  },
+
+  '@media': {
+    'screen and (min-width: 650px)': {
+      vars: {
+        [eclipseSize]: '320px',
+      },
+    },
   },
 
   position: 'absolute',
@@ -183,10 +191,10 @@ const diamondRingBlink = keyframes({
   from: {
     opacity: 0,
   },
-  '35%': {
+  '25%': {
     opacity: 0,
   },
-  '45%': {
+  '40%': {
     opacity: 1,
   },
   to: {

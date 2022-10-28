@@ -37,6 +37,8 @@ export const gradient1Container = style({
   animationTimingFunction: 'linear',
   animationIterationCount: 'infinite',
 
+  willChange: 'transform',
+
   '@media': {
     '(prefers-reduced-motion)': {
       animationName: 'none',
@@ -83,6 +85,8 @@ export const gradient2Container = style({
   animationDuration: '8s',
   animationTimingFunction: 'linear',
   animationIterationCount: 'infinite',
+
+  willChange: 'transform',
 
   '@media': {
     '(prefers-reduced-motion)': {
