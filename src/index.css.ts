@@ -22,7 +22,7 @@ const theme = createGlobalTheme(':root', {
   padding: {
     contentPadding: {
       mobile: '20px',
-      desktop: '30px',
+      desktop: '25px',
     },
 
     space1: '5px',
