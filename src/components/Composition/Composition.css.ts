@@ -11,6 +11,7 @@ const spaceFade = keyframes({
 
 export const compositionWrapper = style({
   height: '100%',
+  overflow: 'hidden',
 
   animationName: spaceFade,
   animationDuration: '7000ms',
