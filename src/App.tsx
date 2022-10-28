@@ -1,22 +1,15 @@
-import './App.css';
-import { Eclipse } from './components/Eclipse/Eclipse';
-import { Form } from './components/Form/Form';
 import { Logo } from './components/Logo/Logo';
-import { Pane } from './components/Pane/Pane';
-import { ShootingStars } from './components/ShootingStars/ShootingStars';
-import { StarrySky } from './components/StarrySky/StarrySky';
+import { Composition } from './components/Composition/Composition';
+import { Form } from './components/Form/Form';
+import { container } from './App.css';
+import { Main } from './components/Main/Main';
 
-function App() {
+export const App = () => {
   return (
-    <div className='App'>
+    <div className={container}>
       <Logo />
-      <StarrySky />
-      <ShootingStars />
-      <Eclipse />
-      <Pane />
-      <Form />
+      <Composition />
+      <Main />
     </div>
   );
-}
-
-export default App;
+};

@@ -1,11 +1,31 @@
-import styles from './Logo.module.css';
+import { memo } from 'react';
+import { visuallyHidden } from '../../index.css';
+import { logo, letter } from './Logo.css';
 
-export const Logo = () => {
+const LOGO_TEXT = 'Celestia';
+
+const Logo = () => {
   return (
-    <div className={styles.logo}>
+    <header className={logo}>
       <h1>
-        Space <br /> Observatory
+        {[...LOGO_TEXT].map((char, index) => {
+          return (
+            <span
+              aria-hidden={true}
+              key={`${index}-first-word-logo-letter`}
+              className={letter}
+              style={{ display: 'inline-block' }}
+            >
+              {char}
+            </span>
+          );
+        })}
+        <span className={visuallyHidden}>Celestia, Space Observatory</span>
       </h1>
-    </div>
+    </header>
   );
 };
+
+const MemoLogo = memo(Logo);
+
+export { MemoLogo as Logo };

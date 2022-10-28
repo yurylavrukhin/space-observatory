@@ -1,18 +1,19 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { memo, useCallback, useEffect, useRef } from 'react';
 import { getRandomNumberInRange } from '../../util/getRandomNumberInRange';
 import { interval } from '../../util/interval';
+import { getIsReducedMotion } from '../../util/isReducedMotion';
+import { container, star } from './ShootingStars.css';
 
-import styles from './ShootingStars.module.css';
-
-export const ShootingStars = () => {
+const ShootingStars = () => {
   const starRef = useRef<HTMLSpanElement>(null);
+
   const shootStar = useCallback(() => {
     if (!starRef.current) {
       return;
     }
 
     const turn = getRandomNumberInRange(-150, -50);
-    const width = getRandomNumberInRange(10, 200);
+    const width = getRandomNumberInRange(5, 100);
 
     const left = getRandomNumberInRange(0, 100);
     const top = getRandomNumberInRange(0, 100);
@@ -28,7 +29,7 @@ export const ShootingStars = () => {
         { transform: `rotate(${turn}grad) translate(-100px)`, opacity: 0 },
       ],
       {
-        duration: 700,
+        duration: 1000,
         iterations: 1,
         easing: 'ease-out',
         fill: 'forwards',
@@ -37,12 +38,22 @@ export const ShootingStars = () => {
   }, []);
 
   useEffect(() => {
-    interval(shootStar, 3000);
+    if (getIsReducedMotion()) {
+      return;
+    }
+
+    interval(shootStar, 1300);
   }, []);
 
+  if (getIsReducedMotion()) {
+    return null;
+  }
+
   return (
-    <div className={styles.shootingStarsContainer}>
-      <span ref={starRef} className={styles.star}></span>
+    <div className={container}>
+      <span ref={starRef} className={star}></span>
     </div>
   );
 };
+
+export default memo(ShootingStars);
