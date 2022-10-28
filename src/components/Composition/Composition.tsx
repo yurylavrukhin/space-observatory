@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { StarrySky } from '../StarrySky/StarrySky';
+import StarrySky from '../StarrySky/StarrySky';
 import ShootingStars from '../ShootingStars/ShootingStars';
 import Eclipse from '../Eclipse/Eclipse';
 import TwinklingStars from '../TwinklingStars/TwinklingStars';
@@ -10,12 +10,10 @@ const Composition = () => {
     <div className={compositionWrapper}>
       <StarrySky />
       <ShootingStars />
-      {/* <TwinklingStars /> */}
+      <TwinklingStars />
       <Eclipse />
     </div>
   );
 };
 
-const MemoComposition = memo(Composition);
-
-export { MemoComposition as Composition };
+export default memo(Composition);

@@ -1,6 +1,6 @@
 import { style, createVar, keyframes } from '@vanilla-extract/css';
 
-const container = style({
+export const container = style({
   position: 'absolute',
   inset: 0,
 
@@ -10,7 +10,7 @@ const container = style({
 
 const dayGradientVar = createVar();
 
-const day = style({
+export const day = style({
   vars: {
     [dayGradientVar]: `
       linear-gradient(
@@ -49,11 +49,12 @@ const nightGradientVar = createVar();
 
 const appearNight = keyframes({
   '0%': { opacity: 0 },
-  '80%': { opacity: 0.5 },
+  '20%': { opacity: 0 },
+  '40%': { opacity: 0.5 },
   '100%': { opacity: 1 },
 });
 
-const night = style({
+export const night = style({
   vars: {
     [nightGradientVar]: `
       linear-gradient(
@@ -94,11 +95,11 @@ const night = style({
 
 const appearStars = keyframes({
   '0%': { opacity: 0 },
-  '80%': { opacity: 0.2 },
+  '60%': { opacity: 0.2 },
   '100%': { opacity: 0.35 },
 });
 
-const stars = style({
+export const stars = style({
   position: 'absolute',
   width: '100%',
   height: '100%',
@@ -106,16 +107,14 @@ const stars = style({
   opacity: 0,
 
   animationName: appearStars,
-  animationDuration: `4000ms`,
+  animationDuration: `2000ms`,
   animationFillMode: 'forwards',
   animationDelay: '500ms',
 
   '@media': {
     '(prefers-reduced-motion)': {
       animationName: 'none',
-      opacity: 0.3,
+      opacity: 0.35,
     },
   },
 });
-
-export { container, day, night, stars };

@@ -1,13 +1,9 @@
-import { memo, useEffect, useRef } from 'react';
-import { litStar, star } from './Star.css';
+import { memo, useRef } from 'react';
+import { star } from './Star.css';
 
-export const Star = memo((props: { id: string; isLit: boolean }) => {
-  const starRef = useRef<HTMLDivElement>(null);
-
-  console.log('rerender star');
-
+const Star = () => {
   return (
-    <div className={`${props.isLit ? litStar : ''} ${star}`} ref={starRef}>
+    <div className={star}>
       <svg
         width='100%'
         height='100%'
@@ -22,4 +18,6 @@ export const Star = memo((props: { id: string; isLit: boolean }) => {
       </svg>
     </div>
   );
-});
+};
+
+export default memo(Star);

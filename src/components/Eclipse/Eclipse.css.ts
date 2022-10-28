@@ -33,17 +33,17 @@ const smallShadowGlimmer = keyframes({
 });
 
 const mediumShadowGlimmer = keyframes({
-  '0%': { opacity: '0' },
-  '50%': { opacity: '1' },
-  '100%': { opacity: '0.5' },
+  '0%': { opacity: 0 },
+  '50%': { opacity: 1 },
+  '100%': { opacity: 0.5 },
 });
 
 const largeShadowGlimmer = keyframes({
-  '0%': { opacity: '0' },
+  '0%': { opacity: 0 },
 
-  '30%': { opacity: 0 },
-  '50%': { opacity: '1' },
-  '100%': { opacity: '0' },
+  '15%': { opacity: 0 },
+  '50%': { opacity: 1 },
+  '100%': { opacity: 0 },
 });
 
 export const star = style({
@@ -63,7 +63,7 @@ export const planet = style({
   position: 'absolute',
   left: '50%',
   top: '50%',
-  transform: 'translate(calc(-50% + 25px), calc(-50% + 25px))',
+  transform: 'translate(calc(-50% + 50px), calc(-50% + 50px))',
 
   background: 'black',
   backgroundRepeat: 'no-repeat',
@@ -83,6 +83,7 @@ export const planet = style({
     '(prefers-reduced-motion)': {
       animationName: 'none',
       transform: 'translate(-50%, -50%)',
+      boxShadow: 'inset 0 0 15px 2px white',
     },
   },
 });
@@ -146,6 +147,7 @@ export const mediumShadow = style({
   '@media': {
     '(prefers-reduced-motion)': {
       animationName: 'none',
+      opacity: 0.5,
     },
   },
 });

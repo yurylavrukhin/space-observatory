@@ -79,6 +79,4 @@ const PlanetIcon = () => (
   </svg>
 );
 
-const MemoPlanet = memo(PlanetIcon);
-
-export { MemoPlanet as PlanetIcon };
+export default memo(PlanetIcon);

@@ -1,4 +1,5 @@
 import { useRef, useState, useCallback, useEffect } from 'react';
+import { getIsReducedMotion } from '../../util/isReducedMotion';
 
 export const useFormReveal = ({
   emailInputRef,
@@ -6,11 +7,9 @@ export const useFormReveal = ({
   emailInputRef: React.RefObject<HTMLInputElement>;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isReducedMotion = window.matchMedia(
-    '(prefers-reduced-motion: reduce)'
-  ).matches;
+
   const [areInputsDisabled, setAreInputsDisabled] = useState(
-    isReducedMotion ? false : true
+    getIsReducedMotion() ? false : true
   );
 
   const handleFormReveal = useCallback(() => {
@@ -18,18 +17,10 @@ export const useFormReveal = ({
   }, []);
 
   useEffect(() => {
-    if (!containerRef.current) {
-      return;
-    }
-
-    containerRef.current.addEventListener('animationend', handleFormReveal);
+    containerRef.current?.addEventListener('animationend', handleFormReveal);
 
     return () => {
-      if (!containerRef.current) {
-        return;
-      }
-
-      containerRef.current.removeEventListener(
+      containerRef.current?.removeEventListener(
         'animationend',
         handleFormReveal
       );

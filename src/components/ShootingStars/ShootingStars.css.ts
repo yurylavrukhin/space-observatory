@@ -10,7 +10,7 @@ const appear = keyframes({
   },
 });
 
-const container = style({
+export const container = style({
   position: 'absolute',
   inset: 0,
 
@@ -23,11 +23,9 @@ const container = style({
   animationFillMode: 'forwards',
 });
 
-const star = style({
+export const star = style({
   position: 'absolute',
 
   height: 2,
   background: `linear-gradient(-40grad, ${colorGray}, white)`,
 });
-
-export { container, star };

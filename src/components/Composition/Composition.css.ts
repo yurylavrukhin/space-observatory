@@ -5,7 +5,7 @@ const spaceFade = keyframes({
     filter: 'brightness(1)',
   },
   to: {
-    filter: 'brightness(0.4)',
+    filter: 'brightness(0.35)',
   },
 });
 
@@ -13,14 +13,14 @@ export const compositionWrapper = style({
   height: '100%',
 
   animationName: spaceFade,
-  animationDuration: '8000ms',
+  animationDuration: '7000ms',
   animationFillMode: 'forwards',
-  animationDelay: '2000ms',
+  animationDelay: '1400ms',
 
   '@media': {
     '(prefers-reduced-motion)': {
       animationName: 'none',
-      filter: 'brightness(0.6)',
+      filter: 'brightness(0.35)',
     },
   },
 });

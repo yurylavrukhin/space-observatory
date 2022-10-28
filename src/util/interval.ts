@@ -9,7 +9,8 @@ export const interval = (callback: () => void, delay: number): void => {
       start = now;
       callback();
     }
-    requestAnimationFrame(tick);
+    window.requestAnimationFrame(tick);
   };
-  requestAnimationFrame(tick);
+
+  window.requestAnimationFrame(tick);
 };

@@ -1,4 +1,4 @@
-import { memo, useRef } from 'react';
+import { memo } from 'react';
 import {
   planet,
   eclipse,
@@ -10,13 +10,11 @@ import {
   diamondRing,
   planetWrapper,
 } from './Eclipse.css';
-import { PlanetIcon } from '../Icons/PlanetIcon/PlanetIcon';
+import PlanetIcon from '../Icons/PlanetIcon/PlanetIcon';
 
 const Eclipse = () => {
-  const eclipseRef = useRef<HTMLDivElement>(null);
-
   return (
-    <div ref={eclipseRef} className={eclipse}>
+    <div className={eclipse}>
       <div className={smallShadow} />
       <div className={mediumShadow} />
       <div className={largeShadow} />

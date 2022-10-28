@@ -6,7 +6,7 @@ import {
   padding,
 } from '../../index.css';
 
-const formReveal = keyframes({
+const mainReveal = keyframes({
   '0%': { opacity: 0, transform: 'scale(0.95)' },
   '100%': { opacity: 1, transform: 'scale(1)' },
 });
@@ -22,10 +22,10 @@ export const container = style({
   height: '100%',
   flexDirection: 'column',
   opacity: 0,
-  animationName: formReveal,
+  animationName: mainReveal,
   animationDuration: '900ms',
   animationFillMode: 'forwards',
-  animationDelay: '1000ms',
+  animationDelay: '3000ms',
 
   '@media': {
     'screen and (min-width: 650px)': {

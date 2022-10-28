@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback, FormEvent } from 'react';
 import { authService } from '../../util/authService';
+import { sleep } from '../../util/sleep';
 import { EmailValidity, PasswordValidity } from './Form.types';
 import {
   EMAIL_INVALIDITY_TYPES,
@@ -8,10 +9,12 @@ import {
 
 const VIRTUAL_SUBMIT_DURATION = 400;
 
+const minimumWaitPromise = sleep(VIRTUAL_SUBMIT_DURATION);
+
 export const useFormValidation = ({
   emailInputRef,
 }: {
-  emailInputRef: React.RefObject<HTMLInputElement>;
+  emailInputRef: React.ForwardedRef<HTMLInputElement>;
 }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -37,12 +40,12 @@ export const useFormValidation = ({
   const signInFormRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (!emailInputRef?.current) {
+    if (typeof emailInputRef === 'function' || !emailInputRef?.current) {
       return;
     }
 
     if (!isSubmitting && emailValidity.isInvalid) {
-      emailInputRef?.current.focus();
+      emailInputRef.current.focus();
     }
   }, [isSubmitting, emailValidity.isInvalid]);
 
@@ -60,12 +63,12 @@ export const useFormValidation = ({
     async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       setIsSubmitting(true);
-      const minimumWaitPromise = new Promise((resolve) =>
-        setTimeout(resolve, VIRTUAL_SUBMIT_DURATION)
-      );
+      if (typeof emailInputRef === 'function' || !emailInputRef?.current) {
+        return;
+      }
 
       for (const invalidityType of EMAIL_INVALIDITY_TYPES) {
-        const isInvalid = emailInputRef?.current?.validity[invalidityType];
+        const isInvalid = emailInputRef.current?.validity[invalidityType];
         if (isInvalid) {
           await minimumWaitPromise;
 

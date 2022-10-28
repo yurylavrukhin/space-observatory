@@ -80,6 +80,7 @@ export const letter = style({
     '(prefers-reduced-motion)': {
       animationName: 'none',
       opacity: 1,
+      transform: 'none',
     },
   },
 });

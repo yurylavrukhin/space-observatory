@@ -26,6 +26,4 @@ const Logo = () => {
   );
 };
 
-const MemoLogo = memo(Logo);
-
-export { MemoLogo as Logo };
+export default memo(Logo);

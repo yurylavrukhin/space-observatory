@@ -27,6 +27,4 @@ const StarrySky = () => {
   );
 };
 
-const MemoStarrySky = memo(StarrySky);
-
-export { MemoStarrySky as StarrySky };
+export default memo(StarrySky);

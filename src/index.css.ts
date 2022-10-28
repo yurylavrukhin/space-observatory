@@ -3,59 +3,61 @@ import {
   globalStyle,
   style,
   createGlobalTheme,
+  createVar,
 } from '@vanilla-extract/css';
 
 const martianGrotesk = 'Martian Grotesk';
 
-const { color, font, padding, borderRadius, selection } = createGlobalTheme(
-  ':root',
-  {
-    color: {
-      primary: '#fcfcfc',
-      secondary: '#dedede',
-      gray: '#667380',
+const theme = createGlobalTheme(':root', {
+  color: {
+    primary: '#fcfcfc',
+    secondary: '#dedede',
+    gray: '#667380',
+  },
+
+  font: {
+    family: `${martianGrotesk}, Helvetica Neue, Hiragino Sans, Arial, Helvetica, sans-serif`,
+  },
+
+  padding: {
+    contentPadding: {
+      mobile: '20px',
+      desktop: '30px',
     },
 
-    font: {
-      family: `${martianGrotesk}, Helvetica Neue, Hiragino Sans, Arial, Helvetica, sans-serif`,
-    },
+    space1: '5px',
+    space2: '10px',
+    space3: '15px',
+    space4: '20px',
+    space5: '25px',
+    space6: '30px',
+    space7: '35px',
+    space8: '40px',
+    space9: '45px',
+    space10: '50px',
+    space11: '55px',
+    space12: '60px',
+    space13: '65px',
+    space14: '70px',
+    space15: '75px',
+    space16: '80px',
+  },
 
-    padding: {
-      contentPadding: '20px',
+  selection: {
+    outlineBoxShadow:
+      'rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(146 25 209 / 54%) 0px 0px 0px 4px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(89 61 109 / 16%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px',
+  },
 
-      space1: '5px',
-      space2: '10px',
-      space3: '15px',
-      space4: '20px',
-      space5: '25px',
-      space6: '30px',
-      space7: '35px',
-      space8: '40px',
-      space9: '45px',
-      space10: '50px',
-      space11: '55px',
-      space12: '60px',
-      space13: '65px',
-      space14: '70px',
-      space15: '75px',
-      space16: '80px',
-    },
+  borderRadius: '15px',
+});
 
-    selection: {
-      outlineBoxShadow:
-        'rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(146 25 209 / 54%) 0px 0px 0px 4px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(89 61 109 / 16%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px',
-    },
-
-    borderRadius: '15px',
-  }
-);
-
-const contentPadding = padding.contentPadding;
-const colorPrimary = color.primary;
-const colorSecondary = color.secondary;
-const colorGray = color.gray;
-const fontFamily = font.family;
-const outlineBoxShadow = selection.outlineBoxShadow;
+const padding = theme.padding;
+const borderRadius = theme.borderRadius;
+const colorPrimary = theme.color.primary;
+const colorSecondary = theme.color.secondary;
+const colorGray = theme.color.gray;
+const fontFamily = theme.font.family;
+const outlineBoxShadow = theme.selection.outlineBoxShadow;
 
 globalFontFace(martianGrotesk, {
   fontWeight: '100 800',
@@ -68,7 +70,21 @@ globalStyle('*', {
   padding: 0,
 });
 
+const contentPadding = createVar();
+
 globalStyle(':root', {
+  vars: {
+    [contentPadding]: theme.padding.contentPadding.mobile,
+  },
+
+  '@media': {
+    'screen and (min-width: 650px)': {
+      vars: {
+        [contentPadding]: theme.padding.contentPadding.desktop,
+      },
+    },
+  },
+
   fontFamily,
   fontSize: '16px',
   lineHeight: '24px',

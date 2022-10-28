@@ -24,6 +24,8 @@ export const container = style({
   animationFillMode: 'forwards',
   animationDelay: '3500ms',
 
+  minWidth: '1400px',
+
   '@media': {
     '(prefers-reduced-motion)': {
       animationName: 'none',
@@ -32,36 +34,84 @@ export const container = style({
   },
 });
 
-const animate = keyframes({
-  from: {},
-  '50%': {
-    transform: 'scale(2)',
+const starLight = keyframes({
+  from: {
+    transform: 'scale(1)',
+    opacity: 'inherit',
+  },
+  '90%': {
+    transform: 'scale(1)',
+    opacity: 'inherit',
+  },
+  '95%': {
+    transform: 'scale(1.3)',
     opacity: 1,
   },
   to: {
     transform: 'scale(1)',
+    opacity: 'inherit',
   },
 });
 
 export const star = style({
   position: 'absolute',
   display: 'flex',
-  filter:
-    'drop-shadow(0 0 5px white) drop-shadow(0 0 5px white) blur(0px) drop-shadow(0 0 15px white)',
-  transition: 'transform 1s easeOutCirc',
 
-  ':hover': {
-    opacity: '1!important',
-    transform: 'scale(1.2)',
-    filter:
-      'drop-shadow(0 0 5px white) drop-shadow(0 0 5px white) blur(1px) drop-shadow(0 0 15px white) brightness(3)',
+  selectors: {
+    '&:nth-child(4n)': {
+      animationName: starLight,
+      animationIterationCount: 'infinite',
+      animationDuration: '4600ms',
+    },
+
+    '&:nth-child(4)': {
+      animationDelay: '300ms',
+    },
+    '&:nth-child(8)': {
+      animationDelay: '600ms',
+    },
+    '&:nth-child(12)': {
+      animationDelay: '900ms',
+    },
+    '&:nth-child(16)': {
+      animationDelay: '1200ms',
+    },
+    '&:nth-child(20)': {
+      animationDelay: '1500ms',
+    },
+    '&:nth-child(24)': {
+      animationDelay: '1800ms',
+    },
+    '&:nth-child(28)': {
+      animationDelay: '2100ms',
+    },
+    '&:nth-child(32)': {
+      animationDelay: '2400ms',
+    },
+    '&:nth-child(36)': {
+      animationDelay: '2700ms',
+    },
+    '&:nth-child(40)': {
+      animationDelay: '3000ms',
+    },
+    '&:nth-child(44)': {
+      animationDelay: '3300ms',
+    },
+    '&:nth-child(48)': {
+      animationDelay: '3600ms',
+    },
+    '&:nth-child(52)': {
+      animationDelay: '4000ms',
+    },
   },
 
-  // animationName: animate,
-  animationDuration: '1000ms',
-  animationIterationCount: 'infinite',
-});
-
-export const litStar = style({
-  transform: 'scale(2)',
+  '@media': {
+    '(prefers-reduced-motion)': {
+      selectors: {
+        '&:nth-child(4n)': {
+          animationName: 'none',
+        },
+      },
+    },
+  },
 });

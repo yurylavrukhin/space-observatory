@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useIncrementingNumber } from './useIncrementingNumber.hooks';
 import { nanoid } from 'nanoid';
+import { getIsReducedMotion } from '../util/isReducedMotion';
 
 declare namespace CSS {
   interface PropertyDefinition {
@@ -26,15 +27,9 @@ const paletteSize = rainbowColors.length;
 export const useRainbow = ({ intervalDelay = 1200 } = {}) => {
   const { current: id } = useRef(nanoid());
 
-  const isReducedMotion = window.matchMedia(
-    '(prefers-reduced-motion: reduce)'
-  ).matches;
-
   const isStaticColors =
-    isReducedMotion || !window.CSS || !CSS.registerProperty;
+    getIsReducedMotion() || !window.CSS || !CSS.registerProperty;
 
-  // Register all custom properties.
-  // This only ever needs to be done once, so there are no dependencies.
   useEffect(() => {
     if (isStaticColors) {
       return;
@@ -54,7 +49,6 @@ export const useRainbow = ({ intervalDelay = 1200 } = {}) => {
     }
   }, [isStaticColors]);
 
-  // Get an ever-incrementing number from another custom hook*
   const intervalCount = useIncrementingNumber(intervalDelay);
 
   if (isStaticColors) {
@@ -65,7 +59,6 @@ export const useRainbow = ({ intervalDelay = 1200 } = {}) => {
     };
   }
 
-  // Using that interval count, derive each current color value
   return {
     [`--iridescent-color-${id}-0`]:
       rainbowColors[(intervalCount + 1) % paletteSize],

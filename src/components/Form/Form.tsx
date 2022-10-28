@@ -23,7 +23,7 @@ import {
   warningIconContainer,
 } from './Form.css';
 import { visuallyHidden } from '../../index.css';
-import { Spinner } from '../Spinner/Spinner';
+import Spinner from '../Spinner/Spinner';
 import ErrorIcon from '../Icons/ErrorIcon/ErrorIcon';
 import SubmitButton from '../SubmitButton/SubmitButton';
 
@@ -51,7 +51,7 @@ export const Form = forwardRef<HTMLInputElement, FormProps>(
       handleSubmit,
       handleEmailChange,
       handlePasswordChange,
-    } = useFormValidation({ emailInputRef } as any);
+    } = useFormValidation({ emailInputRef });
 
     const emailErrorMessage = useMemo(() => {
       if (!emailValidity.invalidityType) {
@@ -75,7 +75,7 @@ export const Form = forwardRef<HTMLInputElement, FormProps>(
             className={`${gradient2} ${
               hasValidationErrors ? gradient2Error : ''
             }`}
-          ></div>
+          />
         </div>
 
         <form
